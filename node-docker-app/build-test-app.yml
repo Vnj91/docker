@@ -36,4 +36,4 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    #let's see if we can pull the image we just pushed
+    #let's see if we can pull the image we just
