@@ -1,0 +1,36 @@
+services:
+  app:
+    image: 418862089010.dkr.ecr.us-east-1.amazonaws.com/my-app:1.1
+    container_name: node-app
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_DB_HOST: mongodb
+      MONGO_DB_USER: admin
+      MONGO_DB_PASSWORD: password
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongodb:27017/
+volumes:
+  mongo-data:
+    driver: local
+    
